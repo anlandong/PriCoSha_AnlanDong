@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">{{ legend }}</legend>
+            <div class="form-group">
+                {{ form.item_name.label(class="form-control-label") }}
+
+                {% if form.item_name.errors %}
+                {{ form.item_name(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.item_name.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.item_name(class="form-control form-control-lg") }}
+                {%endif%}
+            </div>
+
+            <div class="form-group">
+                {{ form.file_path.label(class="form-control-label") }}
+                {% if form.file_path.errors %}
+                {{ form.file_path(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.file_path.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.file_path(class="form-control form-control-lg") }}
+                {%endif%}
+            </div>
+
+            <div class="form-group">
+                {{ form.is_public.label(class="form-control-label") }}
+                {% if form.is_public.errors %}
+                {{ form.is_public(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.is_public.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.is_public(class="form-control form-control-lg") }}
+                {%endif%}
+            </div>
+            <div class="form-group">
+                {{ form.shared_group.label(class="form-control-label") }}
+                {% if form.shared_group.errors %}
+                {{ form.shared_group(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.shared_group.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.shared_group(class="form-control form-control-lg") }}
+                {%endif%}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info")}}
+        </div>
+    </form>
+
+</div>
+
+{% endblock content %}
+
+    {% block fg_add %}
+      {% for fg in fgs_own %}
+<article class="media content-section">
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="{{ url_for('add_people', fg_name=fg.fg_name) }}">{{fg.fg_name}}</a>
+        </div>
+    </div>
+</article>
+      {% endfor %}
+    {% endblock fg_add %}
+
+{% block fg_belong %}
+ {% for belong in belongs %}
+<article class="media content-section">
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2">{{belong.fg_name}} owned by {{belong.owner_email}}</a>
+        </div>
+    </div>
+</article>
+ {% endfor %}
+{%endblock%}
